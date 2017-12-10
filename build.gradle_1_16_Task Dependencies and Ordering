@@ -1,0 +1,73 @@
+// Depend on
+
+task putOnSocks << {
+	println "Put on Socks"
+}
+
+// putOnSocksに依存
+task putOnShoes {
+	dependsOn "putOnSocks"
+	doLast {
+		println "Put on Shoes"
+	}
+}
+
+// ---------------------------------
+
+// finalizedBy
+
+// brashYourTheeth を後に実行
+task eatBreakfast {
+	finalizedBy "brashYourTheeth"
+	doLast {
+		println "Eat breakfast"
+	}
+}
+
+task brashYourTheeth << {
+	println "Brash your theeth"
+}
+
+// ---------------------------------
+
+// shouldRunAfter
+
+task takeShower << {
+	println "Take shower"
+
+}
+
+// 以下のように指定しても、takeShowerの後に実行される
+//   takeShower putOnFragrence
+//   ※takeShowerが実施されることは、必須ではない
+task putOnFragrance {
+	shouldRunAfter "takeShower"
+	doLast {
+		println "Put on Fragrance"
+	}
+}
+
+// ---------------------------------
+
+// 依存しているタスクの実行順序
+// →アルファベット順（指定した順ではない！）
+task getReady {
+
+	// この場合、「eatBreakfast」→「putOnShoes」→「takeShower」
+	// の順番で十こされる
+	dependsOn = ["takeShower", "eatBreakfast", "putOnShoes"]
+}
+
+// 依存するタスクの順序を指定
+putOnShoes.mustRunAfter takeShower
+
+
+// ---------------------------------
+
+// 「putOn」から始まるタスクのみ実行
+task getEquipped {
+    dependsOn tasks.matching{ task -> task.name.startsWith("putOn")}
+    doLast {
+        println "Do task starts with putOn"
+    }
+}

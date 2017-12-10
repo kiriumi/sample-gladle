@@ -1,0 +1,20 @@
+// GradleのJavaプラグインを利用しますよー
+apply plugin: 'java'
+
+task putOnSocks {
+	println "Put on Socks"
+}
+
+task putOnShoes {
+	dependsOn "putOnSocks"
+	println "Put on Shoes"
+}
+
+task eatBrakefast {
+	finalizedBy "brashYourTheeth"
+	println "Eat breakfast"
+}
+
+task brashYourTheeth {
+	println "Brash your theeth"
+}

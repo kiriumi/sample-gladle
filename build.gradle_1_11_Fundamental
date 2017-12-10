@@ -1,0 +1,55 @@
+task groovy << {}
+
+println "Hello Groovy!"
+
+/*
+   Javaと同様にクラス作成が可能
+ */
+class JavaGreeter {
+	public static void sayHello () {
+		System.out.println("Hello Java!")
+	}
+}
+
+// 作成したJavaクラスの利用
+JavaGreeter greeter = new JavaGreeter()
+greeter.sayHello()
+
+
+// 変数
+def foo = 6.5
+println "foo has value: $foo"	// 通常の利用
+println "Let's do some math: 5 + 6 = ${5 + 6}"	// 自動計算
+println "foo is of type: ${foo.class}"	// foo のクラス
+
+foo = "String"
+println "foo is of type: ${foo.class}"	// 型を自補完
+
+def doubleIt(n) {
+	n + n // 最終行が戻り値
+}
+
+foo = 5
+println "doubleIt($foo) = ${doubleIt(foo)}"		// 型を自補完
+
+foo = "String"
+println "doubleIt($foo) = ${doubleIt(foo)}"		// 型を自補完
+
+def noArg() {
+	println "Called the 0 arg function"
+}
+
+def oneArg(x) {
+	println "Called the 1 arg function with  $x"
+	x
+}
+
+def twoArg(x, y) {
+	println "Called the 2 args function with  $x and $y"
+	x + y
+}
+
+noArg()		// 引数がない場合()が必要
+oneArg 1	// 引数がある場合、()を省略可能
+twoArg 1, 2	// 引数がある場合、()を省略可能
+twoArg oneArg(1), 2	// 引数に関数呼出しを入れる場合は、()が必要

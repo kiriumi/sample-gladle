@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'
+}
+
+dependencies {
+	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+}
+
+// gradleコマンドの引数
+// 特定のタスクの依存関係をコンソールに表示：dependencies --configuration runtime
+// 依存しているlibの競合を調査：dependencyInsight --dependency commons-logging

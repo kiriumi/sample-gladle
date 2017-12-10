@@ -1,0 +1,22 @@
+/*
+ * 【プロパティの設定方法】
+ *   ①build.gradle（内部）にextで設定
+ *   ②コマンドラインから設定
+ *   ③gradle.properties（外部ファイル）から設定
+ *     ※ 優先度 内部＞コマンドライン＞外部
+ *
+ */
+
+// 内部にプロパティを指定した場合
+ext {
+	greeting = "Hello Gradle from ext"
+}
+
+// コマンドライン
+// -Pgreeting=HelloGradlefromCommandLine
+
+// 外部ファイル（gradle.properties）を利用する
+task printGreeting << {
+	println greeting
+}
+

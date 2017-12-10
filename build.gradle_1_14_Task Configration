@@ -1,0 +1,31 @@
+/* タスクの定義 */
+project.task("myTask1") // Projectオブジェクト内のTask登録メソッド
+task("myTask2") // Projectオブジェクトの表記を省略可能
+task "myTask3" // メソッドの（）は省略可能
+task myTask4	// Abstract syntax tree
+
+myTask4.description = "This is what's shown in the task list"
+myTask4.group = "This is the heading for this task in the task list"
+
+// タスクの動作をクロージャで追加
+myTask4.doLast { println "Do this last"}
+myTask4.doFirst { println "Do this first"}
+myTask4.leftShift { println "Do this leftShift"} // doLastと同じ
+myTask4 << { println "Do this <<"} // doLastと同じ
+
+//
+task myTask6 {
+	description "myTask6 Description"
+	group "myTask6 Group"
+	doLast  { println "doLast myTask6" }
+
+}
+
+task myTask7 {
+	description("myTask7 Description")
+	group = "myTask7 Group"
+}
+
+task myTask8(description: "myTasc8 Description") {
+
+}

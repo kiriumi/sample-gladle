@@ -1,0 +1,30 @@
+/**
+ * カスタムタスクの作成
+ *   ※ DefaultTaskを拡張
+ */
+class HelloTask extends DefaultTask {
+
+	@TaskAction
+	void doAction() {
+		println "Hello World!"
+	}
+}
+
+task hello(type: HelloTask)
+
+/**
+ * カスタムタスクの作成（プロパティ付）
+ */
+class HelloNameTask extends DefaultTask {
+
+	String firstName
+
+	@TaskAction
+	void doAction() {
+		println "Hello $firstName!"
+	}
+}
+
+task helloName(type: HelloNameTask) {
+	firstName = "Your Name"
+}

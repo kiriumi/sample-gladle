@@ -1,0 +1,48 @@
+task copyJpegs(type: Copy) {
+	from 'images'
+	include '*.JPG'
+	into 'build'
+}
+
+/**
+ * buildフォルダの配下にjpeg, bmpフォルダを作り、そこにファイルをコピーする
+ */
+task copyImages(type: Copy) {
+
+	from('images') {
+		include '*.JPG'
+		into 'jpeg'
+	}
+
+	from('images') {
+		include '*.bmp'
+		into 'bmp'
+	}
+
+	into 'build'
+}
+
+task zipImages(type: Zip) {
+	baseName = 'archive'	// zipファイル名
+	destinationDir = file('build')	// zipファイルの配置先
+	from 'images'	// 圧縮対象
+}
+
+task zipImages2(type: Zip) {
+	baseName = 'archive'	// zipファイル名
+	destinationDir = file('build')	// zipファイルの配置先
+
+	from('images') {
+		include '*.JPG'
+		into 'jpeg'
+	}
+
+	from('images') {
+		include '*.bmp'
+		into 'bmp'
+	}
+}
+
+task deleteBuild(type: Delete) {
+	delete 'build'
+}

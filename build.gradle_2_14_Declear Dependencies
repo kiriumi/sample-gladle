@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.apache.commons:commons-lang3:3.0'
+}
+
+dependencies {
+	testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+dependencies {
+	compile files('libs/commons-beanutils-1.9.3.jar')
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: '*.jar')
+}

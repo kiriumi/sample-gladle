@@ -1,0 +1,109 @@
+// GradleのJavaプラグインを利用しますよー
+apply plugin: 'java'
+
+// Centralリポジトリ―を指定
+repositories {
+    jcenter() // jcenter
+    mavenCentral() // Maven Central Repo
+
+}
+
+// 依存性の指定
+dependencies {
+    // コンパイルするときの依存性を指定
+    compile 'org.slf4j:slf4j-api:1.7.21'
+
+    // テスト用の依存性（コンパイル）
+    testCompile 'junit:junit:4.12'
+}
+
+// Hello Gadle
+task hello {
+    doLast {
+        println 'Hello Gradle!'
+    }
+}
+
+// タスクの処理内容を定義
+task upper << {
+	String str = 'Hello Gradle'
+	println 'Original: ' + str
+	println 'Upper: ' + str.toUpperCase()
+}
+
+
+task count << {
+	4.times {print "$it "}
+}
+
+// 依存するタスクを定義
+task intro(dependsOn: hello) << {
+    println "I'm Gradle"
+}
+
+// タスクの動的な生成
+3.times { counter ->
+	task "dinamicTask$counter" << {
+		println "Dinamic Task$counter"
+	}
+}
+
+// タスクに依存性を追加
+dinamicTask0.dependsOn dinamicTask1
+
+// タスクの追加
+task addingTask << {
+	println "task"
+}
+// 追加するタスク
+addingTask.doFirst() {
+	println "add task"
+}
+
+// タスクにプロパティを追加
+task addExtProp {
+	ext.addProp = "This is Extended Property"
+}
+
+task printExtProp << {
+	println addExtProp.addProp
+}
+
+// メソッドの使用
+task useMethod {
+	method("Arg")
+}
+
+String method(String str) {
+	println "arg is $str"
+}
+
+// デフォルトタスクの指定
+defaultTasks 'default1', 'default2'
+
+task default1 << {
+	println("Default1")
+}
+
+task default2 << {
+	println("Default2")
+}
+
+// 実行するタスクを事前に検知し、振り分け
+gradle.taskGraph.whenReady { taskGraph ->
+
+	if(taskGraph.hasTask(release)) {
+		version = '1.0'
+
+	} else {
+		version = '1.0-SNAPSHOT'
+	}
+}
+
+task dist << {
+	println "Distribution"
+}
+
+task release(dependsOn: dist) << {
+	println "Release"
+}

@@ -1,0 +1,34 @@
+// GradleのJavaプラグインを利用しますよー
+apply plugin: 'java'
+
+// Centralリポジトリ―を指定
+repositories {
+    jcenter() // jcenter
+    mavenCentral() // Maven Central Repo
+
+}
+
+jar {
+	// Jarのマニフェストファイルに記載する情報を追加
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': '1.0'
+    }
+}
+
+// 依存性の指定
+dependencies {
+    // コンパイルするときの依存性を指定
+    compile 'org.slf4j:slf4j-api:1.7.21'
+
+    // テスト用の依存性（コンパイル）
+    testCompile 'junit:junit:4.12'
+}
+
+uploadArchives {
+	repositories {
+		flatDir {
+			dirs 'repos'
+		}
+	}
+}

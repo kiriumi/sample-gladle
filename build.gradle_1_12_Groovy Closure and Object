@@ -1,0 +1,68 @@
+task groovy << {}
+
+def foo = "One million dolloars"
+
+// クロージャ（変数に格納できる関数）
+def myCloser = {
+	println "Hello from a closure"
+	println "The value of foo is ${foo}"
+}
+
+// クロージャを変数に割り当てる
+def bar = myCloser
+def baz = bar
+
+// クロージャの呼び出し
+baz()
+
+// クロージャ（ラムダ式を使用）
+def doubleIt = { x -> x + x }
+
+// 第１引数には関数
+def applyTwice(func, arg) {
+	func(func(arg))
+}
+
+foo = 5
+
+// 第１引数に関数が格納されている変数を取得
+def fooDoubleTwice = applyTwice(doubleIt, foo)
+
+println "Applying doubleIt twice to $foo equals $fooDoubleTwice"
+
+
+def myList = ["Gradle", "Groovy", "Android"]
+
+def printItem = { item -> println "List item: $item"}
+myList.each(printItem)
+
+// より簡潔な書き方
+//   ・クロージャは引数が１つしかないとき、その引数名はitがデフォルト
+//   ・（）がないことに注目
+myList.each {println "Compactoy printing each list item: $it"}
+
+/*
+ * Groovy はSetter, Getterを自動生成してくれる
+ */
+class GroovyGreeter {
+	def greeting = "Default Greeting"
+	def printGreeting() { println "Greeting ${greeting}" }
+}
+
+def greeter = new GroovyGreeter();
+
+// クラス内のメソッド実行
+greeter.printGreeting()
+greeter.greeting = "Costom Greeting"
+greeter.printGreeting()
+
+// GroovyのDelegateを利用
+def greetingClosure = {
+	// クロージャ内にgreeting変数およびprintGreetingメソッドを宣言していない
+	greeting = "Setting the greeting from a closure"
+	printGreeting()
+}
+
+// クロージャのDelegateにgreeterインスタンスを設定
+greetingClosure.delegate = greeter
+greetingClosure()	// クロージャを実行
